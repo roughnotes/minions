@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Minions - Listing Files in :: {{.Dir}}</title>
+		<style>
+			html,body {
+    padding: 0px;
+    margin: 0px;
+    font-family: menlo;
+    font-size: 12px;
+    line-height: 130%;
+    background: black;
+    color: white;
+			}
+
+			body a:visited {
+    color: aqua;
+}
+			body a {
+    color: #e0e42b;
+}
+			ul {
+   list-style: none;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+		
+ul li {
+    margin-top: 5px;
+}
+
+	li.directory::before {
+		content: "\1F4C2"
+	}
+
+	li.file::before {
+		content: "\1F4C4"
+	}
+
+	
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1> Contents - {{.Dir}} </h1>
+		</header>
+		<hr/>
+		<main>
+			<ul>
+				{{$subdir := .SubDir}}
+				{{ with .Files }}
+					{{ range . }}
+						<li class="{{if .IsDir}}directory{{else}}file{{end}}" > 
+							<a href="{{$subdir}}/{{.Name}}" title="{{.Name}}"> {{.Name}} </a>
+						</li>
+					{{end}}
+				{{ end }}
+			</ul>
+		</main>
+	</body>
+</html>
